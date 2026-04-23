@@ -1,69 +1,108 @@
-# geogram
+# GeoGram
 
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-[![Release](https://github.com/BrunoLevy/geogram/actions/workflows/make_release.yml/badge.svg)](https://github.com/BrunoLevy/geogram/actions/workflows/make_release.yml)
-[![Emscripten](https://github.com/BrunoLevy/geogram/actions/workflows/emscripten.yml/badge.svg)](https://github.com/BrunoLevy/geogram/actions/workflows/emscripten.yml)
-[![Doxygen](https://github.com/BrunoLevy/geogram/actions/workflows/doxygen.yml/badge.svg)](https://github.com/BrunoLevy/geogram/actions/workflows/doxygen.yml)
 
-[![Continuous](https://github.com/BrunoLevy/geogram/actions/workflows/continuous.yml/badge.svg)](https://github.com/BrunoLevy/geogram/actions/workflows/continuous.yml)
-[![Continuous](https://custom-icon-badges.demolab.com/badge/CI-Continuous-lightblue?logo=tasklist&logoColor=white)](https://brunolevy.github.io/geogram.CI/reports/smoke/)
+**GeoGram** is a C++ programming library for geometric algorithms, providing a comprehensive set of geometry-processing functionalities.
 
-[![Nightly](https://github.com/BrunoLevy/geogram/actions/workflows/nightly.yml/badge.svg)](https://github.com/BrunoLevy/geogram/actions/workflows/nightly.yml)
-[![Nightly](https://custom-icon-badges.demolab.com/badge/CI-Nightly-lightblue?logo=tasklist&logoColor=white)](https://brunolevy.github.io/geogram.CI/reports/nightly/)
+> This repository is a maintained fork of the [original Geogram](https://github.com/BrunoLevy/geogram) by Bruno Levy. The fork adds CLI applications, a comprehensive unit test suite, and enhanced documentation.
 
+## Features
 
+### Core Functionality
+- Surface reconstruction
+- Remeshing and mesh repair
+- Parameterization and texturing
+- Boolean operations (intersections, unions, differences)
+- Constructive Solid Geometry (CSG)
 
-![](https://github.com/BrunoLevy/geogram/wiki/geogram_banner_2026_2.png)
+### Algorithms
+- Exact predicates and arithmetic
+- Delaunay triangulations (2D/3D, parallel)
+- Constrained Delaunay triangulation (2D)
+- Geometric search data structures (AABBs, KdTrees)
+- Spectral mesh processing
+- Linear solvers (CPU/GPU)
 
+### New in This Fork
 
-Geogram is a programming library with geometric algorithms. It has
-geometry-processing functionalities:
-- [surface reconstruction](https://github.com/BrunoLevy/geogram/wiki/Reconstruction)
-- [remeshing](https://github.com/BrunoLevy/geogram/wiki/Remeshing)
-- [parameterization and texturing](https://github.com/BrunoLevy/geogram/wiki/Texturing)
-- [Intersections and Boolean operations](https://github.com/BrunoLevy/geogram/wiki/BooleanOps)
-- [Constructive Solid Geometry](https://github.com/BrunoLevy/geogram/wiki/CSG)
+#### CLI Applications (`app/`)
+| Application | Description |
+|------------|------------|
+| `geogram_app_csg` | CSG compilation (OpenSCAD-like syntax) |
+| `geogram_app_compare` | Mesh comparison (Hausdorff distance) |
+| `geogram_app_fillholes` | Automatic hole filling |
+| `geogram_app_framefield` | Tangent direction field generation |
+| `geogram_app_harmonics` | Manifold harmonics computation |
+| `geogram_app_hull` | Convex hull (2D/3D) |
+| `geogram_app_partition` | Mesh partitioning |
+| `geogram_app_sample` | Random mesh sampling |
+| `geogram_app_smooth` | Mesh smoothing |
+| `geogram_app_tetra` | Tetrahedralization |
 
-It also has lower-level algorithm:
-- [Exact numbers / exact predicates](https://github.com/BrunoLevy/geogram/wiki/Exact)
-- [Delaunay triangulations in 2D](https://github.com/BrunoLevy/geogram/wiki/Delaunay2D)
-  and highly efficient parallel [Delaunay triangulations in 3D](https://github.com/BrunoLevy/geogram/wiki/Delaunay3D)
-- A multithread-friendly 2D constrained Delaunay triangulation, that supports intersecting constraints, in arbitrary precision.
-- Memory efficient surfacic/volumetric/hybrid [mesh data structure](https://github.com/BrunoLevy/geogram/wiki/Mesh)
-- Efficient [geometric search data structures](https://github.com/BrunoLevy/geogram/wiki/Raytrace) for
-  intersection and raytracing (AABBs, KdTrees, ...)
-- [Spectral mesh processing](https://github.com/BrunoLevy/geogram/wiki/ManifoldHarmonics)
-- [Linear solver on CPU and GPU](https://github.com/BrunoLevy/geogram/wiki/OpenNL)
+#### Unit Tests
+Comprehensive test coverage across multiple categories:
 
-Geogram received the [Symposium on Geometry Processing Software Award](http://awards.geometryprocessing.org/)
-in 2023.
+| Test Suite | Description |
+|-----------|------------|
+| `test_memory` | Memory leak detection |
+| `test_stress` | Large mesh handling |
+| `test_edge_cases` | Numerical precision |
+| `test_thread_safety` | Concurrency tests |
+| `test_error_recovery` | Invalid input handling |
+| `test_api_contract` | API verification |
+| `test_pipeline` | End-to-end pipelines |
+| `test_compare` | Mesh comparison |
+| `test_partition` | Mesh partitioning |
+| `test_fill_holes` | Hole filling |
+| `test_framefield` | Frame field generation |
+| `test_csg` | CSG operations |
+| `test_sampling` | Mesh sampling |
+| `test_tetrahedralize` | Tetrahedralization |
+| `bench_perf` | Performance benchmarks |
 
-*History* Geogram is the result of a sustained development effort that started
-in Y2K (Bruno's post-doc in Stanford). It contains the main results in
-Geometry Processing from the former ALICE Inria project (2004-2018),
-that is, more than 30 research articles published in ACM SIGGRAPH,
-ACM Transactions on Graphics, Symposium on Geometry
-Processing and Eurographics, all these results maintained and reproducible, and
-some of them used in industrial products. Geogram was supported by two grants from the
-European Research Council (ERC): GOODSHAPE and VORPALINE, and two
-Exploratory Action grants from Inria (AeX): EXPLORAGRAM and COSMOGRAM
-(the latter still active), pushing the limits of Geogram to large-scale
-computational physics and Optimal Transport, in the frame of the
-PARMA Inria project.
+## Building
 
+### Prerequisites
+- CMake 3.18+
+- C++ compiler with C++17 support
+- Optional: TetGen (for tetrahedralization)
 
-Links
------
-  - [Documentation, how to compile, tutorials....](https://github.com/BrunoLevy/geogram/wiki)
-  - [Programmer's reference manuals...](https://brunolevy.github.io/geogram/)
-  - [Releases](https://github.com/BrunoLevy/geogram/releases)
-  - [Projects with geogram](https://github.com/BrunoLevy/geogram/wiki/Publications)
-  - [Graphite](https://github.com/BrunoLevy/GraphiteThree), an experimental 3D modeler built around geogram.
-  - [Geogram in-browser demos](https://github.com/BrunoLevy/geogram/wiki/compiling_Emscripten#examples)
-    (How is it possible ? _more on this [here](https://github.com/BrunoLevy/geogram/wiki/compiling_Emscripten)_)
-  - [Data](https://github.com/BrunoLevy/GraphiteThree/wiki/Data)
+### Build Instructions
 
-How does it compare to other geometry-processing libraries ?
-------------------------------------------------------------
+```bash
+mkdir build && cd build
+cmake .. -DGEOGRAM_BUILD_TESTS=ON -DGEOGRAM_WITH_TETGEN=ON
+make -j$(nproc)
+```
 
-See [FAQ](https://github.com/BrunoLevy/geogram/wiki/FAQ)
+### Running Tests
+
+```bash
+# Unit tests
+./bin/test_*
+
+# Benchmarks
+./bin/bench_perf
+```
+
+## License
+
+BSD 3-Clause License
+
+Copyright (c) 2024-2026, csv610
+Portions copyright (c) 2004-2024, Bruno Levy and contributors
+
+## Acknowledgments
+
+This code is derived from the [original Geogram project](https://github.com/BrunoLevy/geogram) by Bruno Levy. Geogram received the [Symposium on Geometry Processing Software Award](http://awards.geometryprocessing.org/) in 2023.
+
+Original development was supported by:
+- ERC GOODSHAPE and VORPALINE grants
+- Inria exploratory action grants (EXPLORAGRAM, COSMOGRAM)
+- PARMA Inria project
+
+## Links
+
+- [Original Geogram](https://github.com/BrunoLevy/geogram)
+- [Original Documentation](https://brunolevy.github.io/geogram/)
+- [Programmer's Reference](https://brunolevy.github.io/geogram/)
